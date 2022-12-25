@@ -16,6 +16,7 @@ func StartReWrite(setting config.Config) {
 
 func read(setting config.Config) map[string][]string {
 	f, _ := excelize.OpenFile(setting.FileName)
+	defer f.Close()
 	rows, _ := f.GetRows(setting.SourceSheet)
 	targetsMap := getDecimalSlice(setting.ReWriteColumns)
 
@@ -50,11 +51,13 @@ func read(setting config.Config) map[string][]string {
 		newSlice = newSlice[1:]
 		output[key] = newSlice
 	}
+
 	return output
 }
 
 func write(input map[string][]string, setting config.Config) bool {
 	f, err := excelize.OpenFile(setting.FileName)
+	defer f.Close()
 	if err != nil {
 		log.Println(err)
 		return false

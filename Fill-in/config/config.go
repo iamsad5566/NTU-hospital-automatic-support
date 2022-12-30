@@ -9,6 +9,7 @@ import (
 
 type Config struct {
 	FileName       string
+	OutputFile     string
 	TargetSheet    string
 	SourceSheet    string
 	PrimaryKey     string
@@ -20,6 +21,7 @@ func GetInstance() Config {
 	godotenv.Load()
 	newConfig := Config{}
 	newConfig.FileName = os.Getenv("FILE_NAME")
+	newConfig.OutputFile = os.Getenv("OUTPUT_FILE")
 	newConfig.TargetSheet = os.Getenv("TARGET_SHEET")
 	newConfig.SourceSheet = os.Getenv("SOURCE_SHEET")
 	newConfig.PrimaryKey = os.Getenv("PRIMARY_KEY")
